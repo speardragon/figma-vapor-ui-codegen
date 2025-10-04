@@ -4,6 +4,7 @@ import {
   LIGHT_SEMANTIC_COLORS,
   FOREGROUND_VARIANTS,
 } from "../tokens/color";
+import { COMPONENT_CONFIGS } from "../config/components";
 
 function rgbToHex(r: number, g: number, b: number): string {
   const toHex = (n: number) => {
@@ -76,10 +77,11 @@ function getColorFromFills(fills: readonly Paint[]): { token: string | null; hex
 
 export function createBackgroundColorProp(
   fills: typeof figma.mixed | readonly Paint[],
-  defaultValue = "transparent"
+  componentName: string
 ): string | undefined {
   if (!fills || fills === figma.mixed) return undefined;
 
+  const defaultValue = COMPONENT_CONFIGS[componentName]?.defaultProps.backgroundColor || "transparent";
   const result = getColorFromFills(fills);
 
   if (!result || !result.token || result.token === defaultValue) {
@@ -91,10 +93,11 @@ export function createBackgroundColorProp(
 
 export function createForegroundProp(
   fills: typeof figma.mixed | readonly Paint[],
-  defaultValue = "normal-200"
+  componentName: string
 ): string {
   if (!fills || fills === figma.mixed) return "";
 
+  const defaultValue = COMPONENT_CONFIGS[componentName]?.defaultProps.foreground || "normal-200";
   const result = getColorFromFills(fills);
 
   if (!result) return "";

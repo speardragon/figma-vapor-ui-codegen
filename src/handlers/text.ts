@@ -1,5 +1,7 @@
 import type { GenerationContext } from "../core/context";
 import { createForegroundProp } from "../utils/color";
+import { createTypographyProp } from "../utils/typography";
+import { createJsxElement } from "../utils/jsx";
 
 export async function handleTextNode(
   node: TextNode,
@@ -11,8 +13,9 @@ export async function handleTextNode(
     return characters;
   }
 
-  const foregroundProp = createForegroundProp(node.fills);
-  console.log("foregroundProp", foregroundProp);
+  const foregroundProp = createForegroundProp(node.fills, "Text");
+  const typographyProp = createTypographyProp(node, "Text");
+  const props = typographyProp + foregroundProp;
 
-  return `<Text${foregroundProp}>${characters}</Text>`;
+  return createJsxElement("Text", props, characters);
 }

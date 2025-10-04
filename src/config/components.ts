@@ -23,6 +23,7 @@ export const COMPONENT_CONFIGS: { [componentName: string]: ComponentConfig } = {
   Text: {
     defaultProps: {
       foreground: "normal-200",
+      typography: "body1",
     },
   },
   HStack: {
