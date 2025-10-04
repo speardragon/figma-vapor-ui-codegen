@@ -23,4 +23,28 @@ export const COMPONENT_CONFIGS: { [componentName: string]: ComponentConfig } = {
   Text: {
     defaultProps: {},
   },
+  HStack: {
+    defaultProps: {
+      gap: "$000",
+      padding: "$000",
+      paddingTop: "$000",
+      paddingBottom: "$000",
+      paddingLeft: "$000",
+      paddingRight: "$000",
+      borderRadius: "$000",
+      backgroundColor: "transparent",
+    },
+  },
+  VStack: {
+    defaultProps: {
+      gap: "$000",
+      padding: "$000",
+      paddingTop: "$000",
+      paddingBottom: "$000",
+      paddingLeft: "$000",
+      paddingRight: "$000",
+      borderRadius: "$000",
+      backgroundColor: "transparent",
+    },
+  },
 };

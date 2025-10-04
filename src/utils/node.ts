@@ -10,5 +10,5 @@ export function getComponentName(node: InstanceNode): string {
 }
 
 export function isAllowedComponent(componentName: string): boolean {
-  return componentName in COMPONENT_CONFIGS;
+  return componentName in COMPONENT_CONFIGS || componentName.endsWith("Icon");
 }
