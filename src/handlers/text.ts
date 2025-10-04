@@ -1,6 +1,6 @@
 import type { GenerationContext } from "../core/context";
-import { createForegroundProp } from "../utils/color";
-import { createTypographyProp } from "../utils/typography";
+import { createForegroundProp } from "../generators/color";
+import { createTypographyProp } from "../generators/typography";
 import { createJsxElement } from "../utils/jsx";
 
 export async function handleTextNode(

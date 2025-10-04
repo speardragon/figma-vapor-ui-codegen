@@ -6,9 +6,9 @@ import {
   createGapProp,
   createPaddingProps,
   createBorderRadiusProp,
-} from "../utils/spacing";
-import { createBackgroundColorProp } from "../utils/color";
-import { createFlexProps } from "../utils/layout";
+} from "../generators/spacing";
+import { createBackgroundColorProp } from "../generators/color";
+import { createFlexProps } from "../generators/layout";
 
 export async function handleFrameNode(
   node: FrameNode,
