@@ -1,6 +1,9 @@
 import { generateProps } from "../utils/props";
 
-export function generateJsx(node: SceneNode, indent: number = 0): string | null {
+export function generateJsx(
+  node: SceneNode,
+  indent: number = 0
+): string | null {
   const indentStr = "  ".repeat(indent);
 
   if (node.type === "TEXT") {
@@ -9,8 +12,8 @@ export function generateJsx(node: SceneNode, indent: number = 0): string | null 
   }
 
   if (node.type === "INSTANCE") {
-    const componentName = node.name;
-    const props = generateProps(node.componentProperties);
+    const componentName = node.name.replace(/[^a-zA-Z]/g, "");
+    const props = generateProps(componentName, node.componentProperties);
 
     if ("children" in node && node.children.length > 0) {
       const childrenJsx = node.children

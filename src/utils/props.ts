@@ -1,17 +1,24 @@
-export function generateProps(properties: ComponentProperties | undefined): string {
+import { DEFAULT_PROPS } from "../config/defaultProps";
+
+export function generateProps(
+  componentName: string,
+  properties: ComponentProperties | undefined
+): string {
   if (!properties) return "";
 
   const props: string[] = [];
+  const defaultProps = DEFAULT_PROPS[componentName] || {};
 
   for (const [key, prop] of Object.entries(properties)) {
-    if (prop.type === "BOOLEAN") {
-      if (prop.value === true) {
-        props.push(key);
+    if (prop.type === "VARIANT") {
+      const defaultValue = defaultProps[key];
+      if (prop.value !== defaultValue) {
+        if (prop.value === "true" || prop.value === "false") {
+          props.push(`${key}={${prop.value}}`);
+        } else {
+          props.push(`${key}="${prop.value}"`);
+        }
       }
-    } else if (prop.type === "VARIANT" || prop.type === "TEXT") {
-      props.push(`${key}="${prop.value}"`);
-    } else {
-      props.push(`${key}="${prop.value}"`);
     }
   }
 
