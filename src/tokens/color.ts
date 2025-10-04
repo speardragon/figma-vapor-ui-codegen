@@ -1,6 +1,10 @@
-export const COLOR_TOKENS = {
+export const BASE_BASIC_COLORS = {
   black: '#000000',
   white: '#ffffff',
+};
+
+export const LIGHT_BASIC_COLORS = {
+  ...BASE_BASIC_COLORS,
   gray: {
     '000': '#ffffff',
     '050': '#f7f7f7',
@@ -135,37 +139,113 @@ export const COLOR_TOKENS = {
     '800': '#780600',
     '900': '#570000',
   },
-  primary: {
-    '100': '#cee3ff',
-    '200': '#3174dc',
+};
+
+export const LIGHT_SEMANTIC_COLORS = {
+  background: {
+    primary: {
+      '100': LIGHT_BASIC_COLORS.blue['100'],
+      '200': LIGHT_BASIC_COLORS.blue['500'],
+    },
+    secondary: {
+      '100': LIGHT_BASIC_COLORS.gray['050'],
+      '200': LIGHT_BASIC_COLORS.gray['100'],
+    },
+    success: {
+      '100': LIGHT_BASIC_COLORS.green['100'],
+      '200': LIGHT_BASIC_COLORS.green['500'],
+    },
+    warning: {
+      '100': LIGHT_BASIC_COLORS.orange['100'],
+      '200': LIGHT_BASIC_COLORS.orange['500'],
+    },
+    danger: {
+      '100': LIGHT_BASIC_COLORS.red['100'],
+      '200': LIGHT_BASIC_COLORS.red['500'],
+    },
+    hint: {
+      '100': LIGHT_BASIC_COLORS.gray['100'],
+      '200': LIGHT_BASIC_COLORS.gray['600'],
+    },
+    contrast: {
+      '100': LIGHT_BASIC_COLORS.gray['200'],
+      '200': LIGHT_BASIC_COLORS.gray['800'],
+    },
+    canvas: BASE_BASIC_COLORS.white,
+    surface: {
+      '100': BASE_BASIC_COLORS.white,
+      '200': LIGHT_BASIC_COLORS.gray['050'],
+    },
   },
-  secondary: {
-    '100': '#f7f7f7',
-    '200': '#e1e1e1',
+  foreground: {
+    primary: {
+      '100': LIGHT_BASIC_COLORS.blue['600'],
+      '200': LIGHT_BASIC_COLORS.blue['700'],
+    },
+    secondary: {
+      '100': LIGHT_BASIC_COLORS.gray['800'],
+      '200': LIGHT_BASIC_COLORS.gray['900'],
+    },
+    success: {
+      '100': LIGHT_BASIC_COLORS.green['600'],
+      '200': LIGHT_BASIC_COLORS.green['700'],
+    },
+    warning: {
+      '100': LIGHT_BASIC_COLORS.orange['600'],
+      '200': LIGHT_BASIC_COLORS.orange['700'],
+    },
+    danger: {
+      '100': LIGHT_BASIC_COLORS.red['600'],
+      '200': LIGHT_BASIC_COLORS.red['700'],
+    },
+    hint: {
+      '100': LIGHT_BASIC_COLORS.gray['600'],
+      '200': LIGHT_BASIC_COLORS.gray['700'],
+    },
+    contrast: {
+      '100': LIGHT_BASIC_COLORS.gray['800'],
+      '200': LIGHT_BASIC_COLORS.gray['900'],
+    },
+    normal: {
+      '100': LIGHT_BASIC_COLORS.gray['700'],
+      '200': LIGHT_BASIC_COLORS.gray['900'],
+    },
   },
-  success: {
-    '100': '#cde8dd',
-    '200': '#058765',
+  border: {
+    normal: LIGHT_BASIC_COLORS.gray['100'],
+    primary: LIGHT_BASIC_COLORS.blue['500'],
+    secondary: LIGHT_BASIC_COLORS.gray['200'],
+    success: LIGHT_BASIC_COLORS.green['500'],
+    warning: LIGHT_BASIC_COLORS.orange['500'],
+    danger: LIGHT_BASIC_COLORS.red['500'],
+    hint: LIGHT_BASIC_COLORS.gray['600'],
+    contrast: LIGHT_BASIC_COLORS.gray['800'],
   },
-  warning: {
-    '100': '#ffd9c8',
-    '200': '#cd4d0a',
+  logo: {
+    normal: LIGHT_BASIC_COLORS.gray['900'],
   },
-  danger: {
-    '100': '#ffd8d7',
-    '200': '#d54049',
+  button: {
+    foreground: {
+      primary: BASE_BASIC_COLORS.white,
+    },
   },
-  hint: {
-    '100': '#e1e1e1',
-    '200': '#5d5d5d',
-  },
-  contrast: {
-    '100': '#c6c6c6',
-    '200': '#393939',
-  },
-  canvas: '#ffffff',
-  surface: {
-    '100': '#ffffff',
-    '200': '#f7f7f7',
-  },
+};
+
+export const FOREGROUND_VARIANTS = {
+  'primary-100': LIGHT_SEMANTIC_COLORS.foreground.primary['100'],
+  'primary-200': LIGHT_SEMANTIC_COLORS.foreground.primary['200'],
+  'secondary-100': LIGHT_SEMANTIC_COLORS.foreground.secondary['100'],
+  'secondary-200': LIGHT_SEMANTIC_COLORS.foreground.secondary['200'],
+  'success-100': LIGHT_SEMANTIC_COLORS.foreground.success['100'],
+  'success-200': LIGHT_SEMANTIC_COLORS.foreground.success['200'],
+  'warning-100': LIGHT_SEMANTIC_COLORS.foreground.warning['100'],
+  'warning-200': LIGHT_SEMANTIC_COLORS.foreground.warning['200'],
+  'danger-100': LIGHT_SEMANTIC_COLORS.foreground.danger['100'],
+  'danger-200': LIGHT_SEMANTIC_COLORS.foreground.danger['200'],
+  'hint-100': LIGHT_SEMANTIC_COLORS.foreground.hint['100'],
+  'hint-200': LIGHT_SEMANTIC_COLORS.foreground.hint['200'],
+  'contrast-100': LIGHT_SEMANTIC_COLORS.foreground.contrast['100'],
+  'contrast-200': LIGHT_SEMANTIC_COLORS.foreground.contrast['200'],
+  'normal-100': LIGHT_SEMANTIC_COLORS.foreground.normal['100'],
+  'normal-200': LIGHT_SEMANTIC_COLORS.foreground.normal['200'],
 };

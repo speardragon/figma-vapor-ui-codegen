@@ -21,7 +21,9 @@ export const COMPONENT_CONFIGS: { [componentName: string]: ComponentConfig } = {
     plainTextChildren: true,
   },
   Text: {
-    defaultProps: {},
+    defaultProps: {
+      foreground: "normal-200",
+    },
   },
   HStack: {
     defaultProps: {

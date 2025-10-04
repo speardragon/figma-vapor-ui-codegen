@@ -1,4 +1,9 @@
-import { COLOR_TOKENS } from "../tokens/color";
+import {
+  BASE_BASIC_COLORS,
+  LIGHT_BASIC_COLORS,
+  LIGHT_SEMANTIC_COLORS,
+  FOREGROUND_VARIANTS,
+} from "../tokens/color";
 
 function rgbToHex(r: number, g: number, b: number): string {
   const toHex = (n: number) => {
@@ -9,13 +14,13 @@ function rgbToHex(r: number, g: number, b: number): string {
 }
 
 function findColorToken(hex: string): string | null {
-  if (COLOR_TOKENS.black === hex) return '$black';
-  if (COLOR_TOKENS.white === hex) return '$white';
-  if (COLOR_TOKENS.canvas === hex) return '$canvas';
+  if (BASE_BASIC_COLORS.black === hex) return "$black";
+  if (BASE_BASIC_COLORS.white === hex) return "$white";
+  if (LIGHT_SEMANTIC_COLORS.background.canvas === hex) return "$canvas";
 
-  for (const [colorName, colorValues] of Object.entries(COLOR_TOKENS)) {
-    if (typeof colorValues === 'string') continue;
-    
+  for (const [colorName, colorValues] of Object.entries(LIGHT_BASIC_COLORS)) {
+    if (typeof colorValues === "string") continue;
+
     for (const [shade, hexValue] of Object.entries(colorValues)) {
       if (hexValue === hex) {
         return `$${colorName}-${shade}`;
@@ -23,10 +28,28 @@ function findColorToken(hex: string): string | null {
     }
   }
 
+  for (const [, categoryValues] of Object.entries(LIGHT_SEMANTIC_COLORS)) {
+    for (const [semanticName, semanticValues] of Object.entries(
+      categoryValues
+    )) {
+      if (typeof semanticValues === "string") {
+        if (semanticValues === hex) {
+          return `$${semanticName}`;
+        }
+      } else {
+        for (const [shade, hexValue] of Object.entries(semanticValues)) {
+          if (hexValue === hex) {
+            return `$${semanticName}-${shade}`;
+          }
+        }
+      }
+    }
+  }
+
   return null;
 }
 
-function getBackgroundColorFromFills(fills: readonly Paint[]): string | null {
+function getColorFromFills(fills: readonly Paint[]): { token: string | null; hex: string } | null {
   if (!Array.isArray(fills) || fills.length === 0) {
     return null;
   }
@@ -46,7 +69,9 @@ function getBackgroundColorFromFills(fills: readonly Paint[]): string | null {
   }
 
   const hex = rgbToHex(color.r, color.g, color.b);
-  return findColorToken(hex);
+  const token = findColorToken(hex);
+  
+  return { token, hex };
 }
 
 export function createBackgroundColorProp(
@@ -55,11 +80,33 @@ export function createBackgroundColorProp(
 ): string | undefined {
   if (!fills || fills === figma.mixed) return undefined;
 
-  const color = getBackgroundColorFromFills(fills);
+  const result = getColorFromFills(fills);
 
-  if (!color || color === defaultValue) {
+  if (!result || !result.token || result.token === defaultValue) {
     return "";
   }
 
-  return ` backgroundColor="${color}"`;
+  return ` backgroundColor="${result.token}"`;
+}
+
+export function createForegroundProp(
+  fills: typeof figma.mixed | readonly Paint[],
+  defaultValue = "normal-200"
+): string {
+  if (!fills || fills === figma.mixed) return "";
+
+  const result = getColorFromFills(fills);
+
+  if (!result) return "";
+
+  for (const [variantKey, variantHex] of Object.entries(FOREGROUND_VARIANTS)) {
+    if (variantHex === result.hex) {
+      if (variantKey === defaultValue) {
+        return "";
+      }
+      return ` foreground="${variantKey}"`;
+    }
+  }
+
+  return ` foreground="${result.hex}"`;
 }

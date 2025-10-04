@@ -1,4 +1,5 @@
 import type { GenerationContext } from "../core/context";
+import { createForegroundProp } from "../utils/color";
 
 export async function handleTextNode(
   node: TextNode,
@@ -10,5 +11,8 @@ export async function handleTextNode(
     return characters;
   }
 
-  return `<Text>${characters}</Text>`;
+  const foregroundProp = createForegroundProp(node.fills);
+  console.log("foregroundProp", foregroundProp);
+
+  return `<Text${foregroundProp}>${characters}</Text>`;
 }
