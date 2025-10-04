@@ -2,7 +2,7 @@ import { generateJsx } from "./src/generators/jsx";
 
 if (figma.editorType === "dev" && figma.mode === "codegen") {
   figma.codegen.on("generate", async ({ node }) => {
-    const code = await generateJsx(node, 0);
+    const code = await generateJsx(node);
 
     if (!code) {
       return [
