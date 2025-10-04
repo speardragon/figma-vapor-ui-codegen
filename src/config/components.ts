@@ -33,6 +33,8 @@ export const COMPONENT_CONFIGS: { [componentName: string]: ComponentConfig } = {
       paddingRight: "$000",
       borderRadius: "$000",
       backgroundColor: "transparent",
+      justifyContent: "flex-start",
+      alignItems: "stretch",
     },
   },
   VStack: {
@@ -45,6 +47,8 @@ export const COMPONENT_CONFIGS: { [componentName: string]: ComponentConfig } = {
       paddingRight: "$000",
       borderRadius: "$000",
       backgroundColor: "transparent",
+      justifyContent: "flex-start",
+      alignItems: "stretch",
     },
   },
 };

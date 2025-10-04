@@ -8,6 +8,7 @@ import {
   createBorderRadiusProp,
 } from "../utils/spacing";
 import { createBackgroundColorProp } from "../utils/color";
+import { createFlexProps } from "../utils/layout";
 
 export async function handleFrameNode(
   node: FrameNode,
@@ -26,6 +27,8 @@ export async function handleFrameNode(
       paddingTop,
       cornerRadius,
       fills,
+      primaryAxisAlignItems,
+      counterAxisAlignItems,
     } = node;
 
     const layoutComponent =
@@ -43,7 +46,13 @@ export async function handleFrameNode(
     );
     const borderRadiusProp = createBorderRadiusProp(cornerRadius);
     const backgroundColorProp = createBackgroundColorProp(fills);
-    const props = gapProp + paddingProp + borderRadiusProp + backgroundColorProp;
+    const flexProp = createFlexProps(
+      layoutComponent,
+      primaryAxisAlignItems,
+      counterAxisAlignItems
+    );
+    const props =
+      gapProp + paddingProp + borderRadiusProp + backgroundColorProp + flexProp;
 
     return createJsxElement(layoutComponent, props, children);
   }
