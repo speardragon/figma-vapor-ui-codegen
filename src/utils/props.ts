@@ -1,4 +1,4 @@
-import { DEFAULT_PROPS } from "../config/defaultProps";
+import { COMPONENT_CONFIGS } from "../config/components";
 
 function isBooleanValue(value: string): boolean {
   return value === "true" || value === "false";
@@ -21,7 +21,7 @@ export function generateProps(
 ): string {
   if (!properties) return "";
 
-  const defaultProps = DEFAULT_PROPS[componentName] || {};
+  const defaultProps = COMPONENT_CONFIGS[componentName]?.defaultProps || {};
 
   const props = Object.entries(properties)
     .filter(([, prop]) => prop.type === "VARIANT")

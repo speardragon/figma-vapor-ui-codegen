@@ -1,0 +1,39 @@
+import type { GenerationContext } from "../core/context";
+import { hasChildren, getComponentName, isAllowedComponent } from "../utils/node";
+import { generateProps } from "../utils/props";
+import { createJsxElement } from "../utils/jsx";
+import { COMPONENT_CONFIGS } from "../config/components";
+import { processChildren } from "./children";
+
+export async function handleInstanceNode(
+  node: InstanceNode,
+  context: GenerationContext,
+  generateJsx: (
+    node: SceneNode,
+    context: GenerationContext
+  ) => Promise<string | null>
+): Promise<string | null> {
+  const componentName = getComponentName(node);
+
+  if (!isAllowedComponent(componentName)) {
+    return hasChildren(node)
+      ? processChildren(node, context, generateJsx)
+      : null;
+  }
+
+  const props = generateProps(componentName, node.componentProperties);
+  const usePlainText =
+    COMPONENT_CONFIGS[componentName]?.plainTextChildren ?? false;
+
+  const children = hasChildren(node)
+    ? await processChildren(
+        node,
+        {
+          plainTextMode: usePlainText,
+        },
+        generateJsx
+      )
+    : null;
+
+  return createJsxElement(componentName, props, children);
+}

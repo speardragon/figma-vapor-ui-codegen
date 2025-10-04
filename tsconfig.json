@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "noEmit": true,
     "target": "es2017",
     "lib": ["es2017"],
     "strict": true,
@@ -7,10 +8,7 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/@figma"
-    ]
+    "typeRoots": ["./node_modules/@types", "./node_modules/@figma"]
   },
   "include": ["code.ts", "src/**/*"]
 }
