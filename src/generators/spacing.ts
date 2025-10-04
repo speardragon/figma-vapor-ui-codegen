@@ -1,4 +1,7 @@
-import { pixelToSpacingToken, pixelToBorderRadiusToken } from "../utils/spacing";
+import {
+  pixelToSpacingToken,
+  pixelToBorderRadiusToken,
+} from "../utils/spacing";
 
 export function createGapProp(
   itemSpacing: number,
@@ -38,18 +41,53 @@ export function createPaddingProps(
     return ` padding="${topToken}"`;
   }
 
-  if (topToken === bottomToken || rightToken === leftToken) {
-    const props: string[] = [];
-    if (rightToken !== defaultValue) {
-      props.push(`paddingX="${rightToken}"`);
-    }
+  const props: string[] = [];
+  const canUseY = topToken === bottomToken;
+  const canUseX = rightToken === leftToken;
+
+  if (canUseY && canUseX) {
     if (topToken !== defaultValue) {
       props.push(`paddingY="${topToken}"`);
     }
-    return props.length > 0 ? " " + props.join(" ") : "";
+    if (rightToken !== defaultValue) {
+      props.push(`paddingX="${rightToken}"`);
+    }
+  } else if (canUseY) {
+    if (topToken !== defaultValue) {
+      props.push(`paddingY="${topToken}"`);
+    }
+    if (rightToken !== defaultValue) {
+      props.push(`paddingRight="${rightToken}"`);
+    }
+    if (leftToken !== defaultValue) {
+      props.push(`paddingLeft="${leftToken}"`);
+    }
+  } else if (canUseX) {
+    if (topToken !== defaultValue) {
+      props.push(`paddingTop="${topToken}"`);
+    }
+    if (rightToken !== defaultValue) {
+      props.push(`paddingX="${rightToken}"`);
+    }
+    if (bottomToken !== defaultValue) {
+      props.push(`paddingBottom="${bottomToken}"`);
+    }
+  } else {
+    if (topToken !== defaultValue) {
+      props.push(`paddingTop="${topToken}"`);
+    }
+    if (rightToken !== defaultValue) {
+      props.push(`paddingRight="${rightToken}"`);
+    }
+    if (bottomToken !== defaultValue) {
+      props.push(`paddingBottom="${bottomToken}"`);
+    }
+    if (leftToken !== defaultValue) {
+      props.push(`paddingLeft="${leftToken}"`);
+    }
   }
 
-  return ` paddingTop="${topToken}" paddingRight="${rightToken}" paddingBottom="${bottomToken}" paddingLeft="${leftToken}"`;
+  return props.length > 0 ? " " + props.join(" ") : "";
 }
 
 export function createBorderRadiusProp(
