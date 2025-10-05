@@ -3,8 +3,8 @@ import { mapPrimaryAxisAlign, mapCounterAxisAlign } from "../utils/layout";
 
 export function createFlexProps(
   componentName: string,
-  primaryAxisAlignItems: string,
-  counterAxisAlignItems: string
+  primaryAxisAlignItems: AutoLayoutMixin["primaryAxisAlignItems"] | undefined,
+  counterAxisAlignItems: AutoLayoutMixin["counterAxisAlignItems"] | undefined
 ): string {
   const config = COMPONENT_CONFIGS[componentName];
   const defaultJustify = config?.defaultProps.justifyContent || "flex-start";

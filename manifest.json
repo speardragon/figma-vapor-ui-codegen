@@ -2,7 +2,7 @@
   "name": "vapor-ui codegen",
   "id": "1556267135771762186",
   "api": "1.0.0",
-  "main": "dist/code.js",
+  "main": "dist/main.js",
   "capabilities": ["codegen"],
   "editorType": ["dev"],
   "codegenLanguages": [{ "label": "React", "value": "TYPESCRIPT" }],

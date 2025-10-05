@@ -1,11 +1,6 @@
+import { SPECIAL_PROP_HANDLERS } from "../config/components";
 import { generateProps } from "./props";
 import { createSizeProps } from "./size";
-
-type SpecialPropResolver = (node: InstanceNode) => string;
-
-const SPECIAL_PROP_HANDLERS: Partial<Record<string, SpecialPropResolver>> = {
-  Button: (node) => (node.layoutGrow ? " stretch" : ""),
-};
 
 export function createInstanceProps(
   componentName: string,

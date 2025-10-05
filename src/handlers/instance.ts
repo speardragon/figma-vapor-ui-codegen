@@ -19,6 +19,9 @@ export async function handleInstanceNode(
 ): Promise<string | null> {
   const componentName = getComponentName(node);
 
+  console.log("node.fills:", node.fills);
+  console.log("node.componentProperties:", node.componentProperties);
+
   if (!isAllowedComponent(componentName)) {
     return hasChildren(node)
       ? processChildren(node, context, generateJsx)

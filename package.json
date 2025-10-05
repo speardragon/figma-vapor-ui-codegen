@@ -2,12 +2,12 @@
   "name": "vapor-ui-codegen",
   "version": "1.0.0",
   "description": "Your Figma Plugin",
-  "main": "code.js",
+  "main": "main.ts",
   "scripts": {
-    "build": "esbuild code.ts --bundle --outfile=dist/code.js --target=es2017",
+    "build": "esbuild main.ts --bundle --outfile=dist/main.js --target=es2017",
     "lint": "eslint --ext .ts,.tsx --ignore-pattern node_modules --ignore-pattern dist .",
     "lint:fix": "eslint --ext .ts,.tsx --ignore-pattern node_modules --ignore-pattern dist --fix .",
-    "watch": "esbuild code.ts --bundle --outfile=dist/code.js --target=es2017 --watch"
+    "watch": "esbuild main.ts --bundle --outfile=dist/main.js --target=es2017 --watch"
   },
   "author": "",
   "license": "",

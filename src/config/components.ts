@@ -1,9 +1,25 @@
 export type ComponentConfig = {
   defaultProps: { [propName: string]: string };
   plainTextChildren?: boolean;
+  childrenAsPlaceholder?: boolean;
 };
 
 export const COMPONENT_CONFIGS: { [componentName: string]: ComponentConfig } = {
+  Avatar: {
+    defaultProps: {
+      size: "md",
+      shape: "square",
+    },
+    plainTextChildren: true,
+  },
+  Badge: {
+    defaultProps: {
+      color: "primary",
+      size: "md",
+      shape: "square",
+    },
+    plainTextChildren: true,
+  },
   Button: {
     defaultProps: {
       color: "primary",
@@ -13,12 +29,23 @@ export const COMPONENT_CONFIGS: { [componentName: string]: ComponentConfig } = {
     },
     plainTextChildren: true,
   },
-  Badge: {
+  IconButton: {
     defaultProps: {
-      variant: "default",
-      size: "medium",
+      color: "primary",
+      size: "md",
+      variant: "fill",
+      disabled: "false",
+      shape: "square",
     },
-    plainTextChildren: true,
+  },
+  Icon: {
+    defaultProps: {
+      color: "primary",
+      size: "md",
+      variant: "fill",
+      disabled: "false",
+      shape: "square",
+    },
   },
   Text: {
     defaultProps: {
@@ -26,6 +53,32 @@ export const COMPONENT_CONFIGS: { [componentName: string]: ComponentConfig } = {
       typography: "body1",
     },
   },
+  Textarea: {
+    defaultProps: {
+      size: "md",
+      disabled: "false",
+      invalid: "false",
+      readOnly: "false",
+      resizing: "false",
+      placeholder: "",
+    },
+    childrenAsPlaceholder: true,
+  },
+  TextInput: {
+    defaultProps: {
+      type: "text",
+      color: "primary",
+      placeholder: "",
+      size: "md",
+      disabled: "false",
+      invalid: "false",
+      readOnly: "false",
+      required: "false",
+    },
+    childrenAsPlaceholder: true,
+  },
+
+  /** 레이아웃 컴포넌트 */
   HStack: {
     defaultProps: {
       gap: "$000",
@@ -54,4 +107,13 @@ export const COMPONENT_CONFIGS: { [componentName: string]: ComponentConfig } = {
       alignItems: "stretch",
     },
   },
+};
+
+type SpecialPropResolver = (node: InstanceNode) => string;
+
+export const SPECIAL_PROP_HANDLERS: Partial<
+  Record<string, SpecialPropResolver>
+> = {
+  Button: (node) => (node.layoutGrow ? " stretch" : ""),
+  IconButton: () => ' aria-label=""',
 };
