@@ -7,6 +7,10 @@ export async function generateJsx(
   node: SceneNode,
   context: GenerationContext = { plainTextMode: false }
 ): Promise<string | null> {
+  if (node.visible === false) {
+    return null;
+  }
+
   switch (node.type) {
     case "TEXT":
       return handleTextNode(node, context);

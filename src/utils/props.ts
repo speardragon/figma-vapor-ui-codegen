@@ -5,7 +5,7 @@ function isBooleanValue(value: string): boolean {
 }
 
 function formatPropValue(key: string, value: string): string {
-  return isBooleanValue(value) ? `${key}={${value}}` : `${key}="${value}"`;
+  return isBooleanValue(value) ? `${key}` : `${key}="${value}"`;
 }
 
 function shouldIncludeProp(

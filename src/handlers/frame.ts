@@ -45,7 +45,11 @@ export async function handleFrameNode(
       paddingLeft
     );
     const borderRadiusProp = createBorderRadiusProp(cornerRadius);
-    const backgroundColorProp = createBackgroundColorProp(fills, layoutComponent);
+
+    const backgroundColorProp = createBackgroundColorProp(
+      fills,
+      layoutComponent
+    );
     const flexProp = createFlexProps(
       layoutComponent,
       primaryAxisAlignItems,
