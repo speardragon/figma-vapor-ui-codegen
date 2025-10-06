@@ -10,7 +10,6 @@ export async function generateJsx(
   if (node.visible === false) {
     return null;
   }
-  console.log("node", node.name, node.type);
 
   switch (node.type) {
     case "TEXT":
