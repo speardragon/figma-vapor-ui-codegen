@@ -1,6 +1,6 @@
 {
   "name": "vapor-ui codegen",
-  "id": "1556267135771762186",
+  "id": "1556983703264010806",
   "api": "1.0.0",
   "main": "dist/main.js",
   "capabilities": ["codegen"],
