@@ -8,7 +8,7 @@ if (figma.editorType === "dev" && figma.mode === "codegen") {
       return [
         {
           language: "TYPESCRIPT",
-          code: "/** 변환 중 오류가 발생했습니다. 다시 시도해주세요. */",
+          code: "/** 코드 보기를 지원하지 않는 요소입니다. */",
           title: "@vapor-ui/core",
         },
       ];
