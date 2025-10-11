@@ -4,6 +4,7 @@ import {
   getComponentName,
   isAllowedComponent,
   parseComponentInfo,
+  normalizeComponentName,
 } from "../utils/node";
 import { createJsxElement } from "../utils/jsx";
 import { COMPONENT_CONFIGS } from "../config/components";
@@ -28,19 +29,26 @@ export async function handleInstanceNode(
   }
 
   const { componentName: parsedComponentName, libraryType } = parseComponentInfo(node.name);
+  const normalizedComponentName = normalizeComponentName(parsedComponentName);
   const libraryPath = getLibraryPath(libraryType);
 
   if (libraryPath && context.usedComponents) {
     if (!context.usedComponents[libraryPath]) {
       context.usedComponents[libraryPath] = new Set();
     }
-    context.usedComponents[libraryPath].add(parsedComponentName);
+    const rootComponentName = normalizedComponentName.split(".")[0];
+    context.usedComponents[libraryPath].add(rootComponentName);
   }
 
+  const rootName = componentName.split(".")[0];
+  const subName = componentName.split(".")[1];
   const props = createInstanceProps(componentName, node);
 
-  const usePlainText =
-    COMPONENT_CONFIGS[componentName]?.plainTextChildren ?? false;
+  let usePlainText = COMPONENT_CONFIGS[rootName]?.plainTextChildren ?? false;
+  
+  if (subName && COMPONENT_CONFIGS[rootName]?.subComponents?.[subName]) {
+    usePlainText = COMPONENT_CONFIGS[rootName].subComponents[subName].plainTextChildren ?? false;
+  }
 
   const children = hasChildren(node)
     ? await processChildren(
@@ -53,5 +61,5 @@ export async function handleInstanceNode(
       )
     : null;
 
-  return createJsxElement(componentName, props, children);
+  return createJsxElement(normalizedComponentName, props, children);
 }

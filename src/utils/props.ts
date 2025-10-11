@@ -21,7 +21,15 @@ export function generateProps(
 ): string {
   if (!properties) return "";
 
-  const defaultProps = COMPONENT_CONFIGS[componentName]?.defaultProps || {};
+  const parts = componentName.split(".");
+  const rootName = parts[0];
+  const subName = parts[1];
+  
+  let defaultProps = COMPONENT_CONFIGS[rootName]?.defaultProps || {};
+  
+  if (subName && COMPONENT_CONFIGS[rootName]?.subComponents?.[subName]) {
+    defaultProps = COMPONENT_CONFIGS[rootName].subComponents[subName].defaultProps;
+  }
 
   const props = Object.entries(properties)
     .filter(([key]) => !key.includes("(design only)"))
