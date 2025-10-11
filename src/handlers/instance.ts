@@ -3,11 +3,13 @@ import {
   hasChildren,
   getComponentName,
   isAllowedComponent,
+  parseComponentInfo,
 } from "../utils/node";
 import { createJsxElement } from "../utils/jsx";
 import { COMPONENT_CONFIGS } from "../config/components";
 import { processChildren } from "./children";
 import { createInstanceProps } from "../utils/component-props";
+import { getLibraryPath } from "../utils/imports";
 
 export async function handleInstanceNode(
   node: InstanceNode,
@@ -25,6 +27,16 @@ export async function handleInstanceNode(
       : null;
   }
 
+  const { componentName: parsedComponentName, libraryType } = parseComponentInfo(node.name);
+  const libraryPath = getLibraryPath(libraryType);
+
+  if (libraryPath && context.usedComponents) {
+    if (!context.usedComponents[libraryPath]) {
+      context.usedComponents[libraryPath] = new Set();
+    }
+    context.usedComponents[libraryPath].add(parsedComponentName);
+  }
+
   const props = createInstanceProps(componentName, node);
 
   const usePlainText =
@@ -34,6 +46,7 @@ export async function handleInstanceNode(
     ? await processChildren(
         node,
         {
+          ...context,
           plainTextMode: usePlainText,
         },
         generateJsx

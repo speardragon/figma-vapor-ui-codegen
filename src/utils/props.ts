@@ -24,6 +24,7 @@ export function generateProps(
   const defaultProps = COMPONENT_CONFIGS[componentName]?.defaultProps || {};
 
   const props = Object.entries(properties)
+    .filter(([key]) => !key.includes("(design only)"))
     .filter(([, prop]) => prop.type === "VARIANT")
     .filter(([key, prop]) =>
       shouldIncludeProp(prop.value as string, defaultProps[key])
